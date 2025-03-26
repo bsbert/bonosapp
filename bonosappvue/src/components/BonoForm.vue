@@ -46,7 +46,7 @@
   <script>
   import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
   import { useRouter } from 'vue-router'; // Importa useRouter
-  
+  import { db } from '../../firebaseConfig';
   export default {
     setup() { // Usar setup()
     const router = useRouter(); // Obtener la instancia del router
