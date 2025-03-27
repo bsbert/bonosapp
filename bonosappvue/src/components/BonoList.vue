@@ -15,28 +15,31 @@
 
           <div class="card-body">
             <h5 class="card-title">{{ bono.name }}</h5>
-            <p class="card-text">{{ bono.description }}</p>
+            <p style="display: flex; justify-content: space-between; align-items: center;">
+            Activo
+            <input type="checkbox" v-model="bono.active" disabled />
+          </p>
             <p class="card-text">
               <small :class="{ 'text-muted': bono.active }">
-                Activo desde: {{ formatDate(bono.available_from) }}
+                Desde: {{ formatDate(bono.available_from) }}
               </small>
             </p>
             <p class="card-text">
               <small :class="{ 'text-muted': bono.active }">
-                Activo hasta: {{ formatDate(bono.available_to) }}
+                Hasta: {{ formatDate(bono.available_to) }}
               </small>
             </p>
             <p class="card-text">
-              <small :class="{ 'text-muted': bono.active }">Precio: {{ bono.nominal }}</small>
+              <small :class="{ 'text-muted': bono.active }">Precio: {{ bono.amount }} {{ bono.currency }}</small>
             </p>
           </div>
       </div>
     </div>
-    <div v-if="mostrarModalBono" class="modal">
+    <div v-if="mostrarModalBono" class="modal" @click.self="cerrarModal">
       <div class="modal-content">
-        <button class="btn btn-danger"@click="borrarBono(bonoSeleccionado.id)" >Borrar</button>
-        <button class = "btn btn-info"@click="editarBono(bonoSeleccionado)">Editar</button>
-        <button  class = "btn btn-secondary" @click="cerrarModal">Cancelar</button>
+        <button class="btn btn-secondary" @click="verBono(bonoSeleccionado)">Ver</button>
+        <button class="btn btn-info" @click="editarBono(bonoSeleccionado)">Editar</button>
+        <button class="btn btn-danger" @click="borrarBono(bonoSeleccionado.id)">Borrar</button>
       </div>
     </div>
   </div>
@@ -77,7 +80,7 @@ export default {
       const date = new Date(dateString);
 
       if (isNaN(date.getTime())) {
-        return 'Fecha inválida'; // Manejar fechas inválidas
+        return '-'; // Manejar fechas inválidas
       }
 
       const day = date.getDate();
@@ -94,6 +97,21 @@ export default {
       this.mostrarModalBono = false;
       this.bonoSeleccionado = null;
     },
+    verBono(bono) {
+      this.$router.push({
+        path: '/editbono',
+        query: { bono: JSON.stringify(bono), ver: true }, // Pasamos 'ver: true' en la query
+      });
+      this.cerrarModal();
+    },
+    editarBono(bono) {
+      console.log(JSON.stringify(bono));
+      this.$router.push({
+        path: '/editbono',
+        query: { bono: JSON.stringify(bono) }, // Pasamos el bono como JSON en la query
+      });
+      this.cerrarModal();
+    },
     async borrarBono(bonoId) {
       try {
         await deleteDoc(doc(db, 'bonos', bonoId)); // Elimina el documento
@@ -102,13 +120,6 @@ export default {
       } catch (error) {
         console.error('Error al borrar el bono: ', error);
       }
-    },
-    editarBono(bono) {
-      this.router.push({
-        path: '/editbono',
-        query: bono,
-      });
-      this.cerrarModal();
     },
     redirigirAEditBono() {
       this.$router.push('/editbono');

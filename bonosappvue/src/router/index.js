@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 import BonoList from '../components/BonoList.vue'
-import EditBono from '../components/BonoForm.vue'
+import BonoForm from '../components/BonoForm.vue'
 const routes = [
   {
     path: '/',
@@ -21,11 +20,8 @@ const routes = [
     name: 'BonoList',
     component: BonoList
   },
-  {
-    path: '/editbono',
-    name: 'EditBono',
-    component: EditBono
-  },
+  { path: '/editbono', component: BonoForm, props: route => ({ bono: route.query.bono ? JSON.parse(route.query.bono) : null, route: route }) }
+
 ]
 
 const router = createRouter({
