@@ -5,6 +5,8 @@ import Register from '../components/Register.vue'
 import SignIn from '../components/SignIn.vue'
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { ref } from 'vue';
+import { toast } from 'vue3-toastify';
+
 const routes = [
 
   {
@@ -48,8 +50,9 @@ const getCUrrentUser = () => {
 router.beforeEach(async (to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!await getCUrrentUser()) {
+      toast.error("Necesitas iniciar sesión para acceder a esta página");
       alert('Necesitas iniciar sesión para acceder a esta página');
-      next('/sign-in'); // Redirige al inicio de sesión si no está autenticado
+      next(''); // Redirige al inicio de sesión si no está autenticado
     } else {
       next(); // Permite el acceso si está autenticado
     }

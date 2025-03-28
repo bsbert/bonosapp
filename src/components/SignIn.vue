@@ -15,7 +15,7 @@
         <input type="password" class="form-control" id="floatingPassword" placeholder="Password" v-model="password">
         <label for="floatingPassword">Contraseña</label>
       </div>
-      <p v-if="errMsg" class="text-danger">{{ errMsg }}</p>
+      <p v-if="errMsg" class="text-danger" v-html="errMsg"></p>
       <div class="checkbox mb-3">
         <label>
           <input type="checkbox" value="remember-me"> Recordar contraseña
@@ -61,6 +61,9 @@ const signIn = async () => {
         break;
       case 'auth/user-disabled':
         errMsg.value = 'El usuario ha sido deshabilitado';
+        break;
+        case 'auth/invalid-credential':
+        errMsg.value = 'El usuario no está creado.<br>Por favor, regístrese.';
         break;
       default:
         errMsg.value = error.message;
