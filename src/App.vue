@@ -1,7 +1,9 @@
 <template>
   <nav>
     <router-link to="/bonolist">Lista</router-link> |
-    <router-link to="/editbono">Crear Bono</router-link>
+    <router-link to="/editbono">Crear Bono</router-link> |
+    <router-link to="/register">Register</router-link> |
+    <router-link to="/sign-in">Login</router-link>
   </nav>
   <router-view/>
 </template>
