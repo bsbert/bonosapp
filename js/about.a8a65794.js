@@ -1,2 +1,2 @@
 "use strict";(self["webpackChunkbonosappvue"]=self["webpackChunkbonosappvue"]||[]).push([[594],{603:function(n,u,a){a.r(u),a.d(u,{default:function(){return p}});var e=a(6768);const s={class:"about"};function t(n,u){return(0,e.uX)(),(0,e.CE)("div",s,u[0]||(u[0]=[(0,e.Lk)("h1",null,"This is an about page",-1)]))}var o=a(1241);const r={},c=(0,o.A)(r,[["render",t]]);var p=c}}]);
-//# sourceMappingURL=about.14469159.js.map
+//# sourceMappingURL=about.a8a65794.js.map

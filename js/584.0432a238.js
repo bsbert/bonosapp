@@ -1,2 +1,0 @@
-"use strict";(self["webpackChunkbonosappvue"]=self["webpackChunkbonosappvue"]||[]).push([[584],{5584:function(n,u,e){e.r(u),e.d(u,{default:function(){return i}});var s=e(6768);const r={class:"sign-in"};function t(n,u){return(0,s.uX)(),(0,s.CE)("div",r,u[0]||(u[0]=[(0,s.Lk)("h1",null,"Sign In",-1)]))}var a=e(1241);const c={},o=(0,a.A)(c,[["render",t]]);var i=o}}]);
-//# sourceMappingURL=584.0432a238.js.map
