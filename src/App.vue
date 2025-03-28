@@ -1,13 +1,40 @@
 <template>
   <nav>
     <router-link to="/bonolist">Lista</router-link> |
-    <router-link to="/editbono">Crear Bono</router-link> |
-    <router-link to="/register">Register</router-link> |
-    <router-link to="/sign-in">Login</router-link>
+    <router-link to="/editbono">Crear Bono</router-link>
+    <router-link to="/sign-in" v-if="!isLoggedIn">| Iniciar Sesión</router-link>
+    <button @click="handleSignOut" v-if="isLoggedIn">Cerrar Sesión</button>
   </nav>
   <router-view/>
 </template>
 
+<script setup>
+import { ref, onMounted } from 'vue';
+import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
+import { useRouter, RouterLink } from 'vue-router';
+
+const router = useRouter();
+const isLoggedIn = ref(false);
+
+onMounted(() => {
+  const auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
+    isLoggedIn.value = !!user;
+  });
+});
+
+const handleSignOut = () => {
+  const auth = getAuth(); // Obtener auth dentro de handleSignOut
+  signOut(auth)
+    .then(() => {
+      isLoggedIn.value = false;
+      router.push('/');
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+</script>
 <style>
 /* 
 #app {

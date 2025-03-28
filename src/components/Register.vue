@@ -31,24 +31,42 @@
 
 <script setup>
 import{ref} from 'vue';
-import{createUserWithEmailAndPassword} from 'firebase/auth';
+import{useStore} from 'vuex';
+import { auth, createUserWithEmailAndPassword } from '../../firebaseConfig';
 import { useRouter } from 'vue-router';
-import { auth } from '../../firebaseConfig';
 
+const router = useRouter();
 const email = ref('');
 const password = ref('');
-const register = () =>{
-createUserWithEmailAndPassword(auth, email.value, password.value)
-.then((data) => {
-  console.log("Se ha registrado correctamente");
-  this.$router.push('/bonolist');
-}).catch((error) => {
-  console.error("Error al registrarse:", error);
-  console.log(error.code);
-  alert(error.message);
-  // ..
-});
-}
+const register = async () => {
+  event.preventDefault();  
+  console.log(email.value, password.value);
+  try {
+    await createUserWithEmailAndPassword(auth, email.value, password.value);
+    console.log("Se ha registrado correctamente");
+    console.log(auth.currentUser);
+    router.push('/bonolist');
+  } catch (error) {
+    switch(error.code){
+      case 'auth/email-already-in-use':
+        alert('El correo ya está en uso');
+        break;
+      case 'auth/invalid-email':
+        alert('El correo no es válido');
+        break;
+      case 'auth/wrong-password':
+        alert('La contraseña es incorrecta');
+        break;
+      case 'auth/weak-password':
+        alert('La contraseña es débil');
+        break;
+        default:
+        alert('Error al registrarse');
+    }
+    return
+  }
+  router.push('/bonolist');
+};
 const signInWithGoogle = () =>{
   
 }
