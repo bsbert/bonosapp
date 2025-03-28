@@ -50,7 +50,7 @@ const getCUrrentUser = () => {
 router.beforeEach(async (to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!await getCUrrentUser()) {
-      toast.error("Necesitas iniciar sesión para acceder a esta página");
+      // toast.error("Necesitas iniciar sesión para acceder a esta página");
       alert('Necesitas iniciar sesión para acceder a esta página');
       next(''); // Redirige al inicio de sesión si no está autenticado
     } else {
