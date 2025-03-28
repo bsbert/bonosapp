@@ -1,12 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import BonoList from '../components/BonoList.vue'
 import BonoForm from '../components/BonoForm.vue'
+import Register from '../components/Register.vue'
+import SignIn from '../components/SignIn.vue'
 const routes = [
-  {
-    path: '/',
-    name: 'bonolist',
-    component: BonoList
-  },
+
   {
     path: '/about',
     name: 'about',
@@ -15,12 +13,11 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
-  {
-    path: '/bonolist',
-    name: 'BonoList',
-    component: BonoList
-  },
-  { path: '/editbono', component: BonoForm, props: route => ({ bono: route.query.bono ? JSON.parse(route.query.bono) : null, route: route }) }
+  { path: '/', name: 'bonolist', component: BonoList },
+  { path: '/bonolist', name: 'BonoList', component: BonoList },
+  { path: '/editbono', component: BonoForm, props: route => ({ bono: route.query.bono ? JSON.parse(route.query.bono) : null, route: route }) },
+  { path: '/register', name: 'Register', component: Register, props: route => ({ route: route }) },
+  { path: '/sign-in', component: SignIn },
 
 ]
 
