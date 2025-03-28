@@ -13,6 +13,7 @@ import { ref, onMounted } from 'vue';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 import { useRouter, RouterLink } from 'vue-router';
 
+
 const router = useRouter();
 const isLoggedIn = ref(false);
 
